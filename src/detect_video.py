@@ -2,25 +2,29 @@ from ultralytics import YOLO
 import cv2
 import time
 import threading
+import requests
+import json
+
 try:
     import winsound
 except:
     winsound = None
-import requests
-import json
+
 
 # ===============================
 # TELEGRAM SETTINGS
 # ===============================
 
-BOT_TOKEN = "8174249575:AAFuE_qwKqy9kaMyQ5BNcDrvu7sMaE6bfpI"
+BOT_TOKEN = "YOUR_BOT_TOKEN"
+
 
 def load_users():
     try:
-        with open("users.json","r") as f:
+        with open("users.json", "r") as f:
             return json.load(f)
     except:
         return []
+
 
 def send_telegram_alert():
 
@@ -47,9 +51,9 @@ def send_fire_image(image_path):
 
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
 
-        files = {"photo": open(image_path,"rb")}
+        files = {"photo": open(image_path, "rb")}
 
-        requests.post(url,data={"chat_id":chat_id},files=files)
+        requests.post(url, data={"chat_id": chat_id}, files=files)
 
 
 def send_fire_video(video_path):
@@ -60,9 +64,9 @@ def send_fire_video(video_path):
 
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo"
 
-        files = {"video": open(video_path,"rb")}
+        files = {"video": open(video_path, "rb")}
 
-        requests.post(url,data={"chat_id":chat_id},files=files)
+        requests.post(url, data={"chat_id": chat_id}, files=files)
 
 
 # ===============================
@@ -71,7 +75,7 @@ def send_fire_video(video_path):
 
 def play_alarm():
     if winsound:
-        winsound.Beep(2000,500)
+        winsound.Beep(2000, 500)
 
 
 # ===============================
@@ -112,6 +116,8 @@ def detect_frame(frame):
     global record_start
     global video_name
 
+    current_time = time.time()
+
     results = model(frame, conf=0.5)
 
     annotated_frame = results[0].plot()
@@ -129,7 +135,6 @@ def detect_frame(frame):
             fire_detected = True
             fire_conf = conf
 
-
     if fire_detected:
 
         cv2.putText(
@@ -144,50 +149,55 @@ def detect_frame(frame):
 
         threading.Thread(target=play_alarm).start()
 
-        current_time = time.time()
-
+        # ===============================
         # SEND TELEGRAM ALERT + SCREENSHOT
+        # ===============================
+
         if current_time - last_alert_time > alert_interval:
 
             image_name = f"fire_{int(current_time)}.jpg"
 
             cv2.imwrite(image_name, annotated_frame)
 
-            send_telegram_alert()
             send_fire_image(image_name)
+            send_telegram_alert()
 
             last_alert_time = current_time
 
-
+        # ===============================
         # START VIDEO RECORDING
-    if fire_detected and not recording:
+        # ===============================
 
-     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        if not recording:
 
-    video_name = f"fire_video_{int(current_time)}.mp4"
+            fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 
-    video_writer = cv2.VideoWriter(
-        video_name,
-        fourcc,
-        20.0,
-        (frame.shape[1], frame.shape[0])
-    )
+            video_name = f"fire_video_{int(current_time)}.mp4"
 
-    recording = True
-    record_start = time.time()
+            video_writer = cv2.VideoWriter(
+                video_name,
+                fourcc,
+                20.0,
+                (frame.shape[1], frame.shape[0])
+            )
 
-# SAVE VIDEO FRAME
-    if recording and video_writer is not None and record_start is not None:
+            recording = True
+            record_start = time.time()
 
-         video_writer.write(annotated_frame)
+    # ===============================
+    # SAVE VIDEO FRAMES
+    # ===============================
 
-         if time.time() - record_start > record_duration:
+    if recording and video_writer is not None:
 
-          recording = False
+        video_writer.write(annotated_frame)
 
-         video_writer.release()
+        if time.time() - record_start > record_duration:
 
-    if video_name:
-            send_fire_video(video_name)
+            recording = False
+            video_writer.release()
+
+            if video_name:
+                send_fire_video(video_name)
 
     return annotated_frame

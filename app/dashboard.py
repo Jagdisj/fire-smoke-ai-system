@@ -3,13 +3,11 @@ import cv2
 import tempfile
 import sys
 import os
-import json
 import requests
 
 BOT_TOKEN = "8174249575:AAFuE_qwKqy9kaMyQ5BNcDrvu7sMaE6bfpI"
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
-
 from detect_video import detect_frame
 
 st.set_page_config(
@@ -19,24 +17,22 @@ st.set_page_config(
 )
 
 # ============================
-# LOAD USERS
+# TELEGRAM USER CHECK
 # ============================
 
-def get_users():
+def get_telegram_users():
 
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates"
 
-    data = requests.get(url).json()
+    response = requests.get(url).json()
 
     users = []
 
-    for result in data.get("result", []):
+    for update in response.get("result", []):
 
-        message = result.get("message")
+        if "message" in update:
 
-        if message:
-
-            chat_id = message["chat"]["id"]
+            chat_id = update["message"]["chat"]["id"]
 
             if chat_id not in users:
                 users.append(chat_id)
@@ -44,7 +40,7 @@ def get_users():
     return users
 
 
-users = get_users()
+users = get_telegram_users()
 
 # ============================
 # LOGIN CHECK
@@ -54,9 +50,11 @@ if len(users) == 0:
 
     st.title("🔥 Login Required")
 
-    st.write("Open Telegram bot and send /start")
+    st.write("Step 1: Open Telegram bot")
 
     st.markdown("👉 https://t.me/fire_alert_admin_ai_bot")
+
+    st.write("Step 2: Send /start to login")
 
     st.stop()
 
@@ -67,7 +65,6 @@ if len(users) == 0:
 
 st.title("🔥 AI Fire Monitoring Dashboard")
 st.write("Fire & Smoke Detection System")
-
 
 option = st.selectbox(
     "Select Detection Source",
@@ -86,7 +83,7 @@ if option == "Image Detection":
 
         file_bytes = uploaded_file.read()
 
-        with open("temp.jpg","wb") as f:
+        with open("temp.jpg", "wb") as f:
             f.write(file_bytes)
 
         image = cv2.imread("temp.jpg")

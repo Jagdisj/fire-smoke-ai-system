@@ -2,7 +2,10 @@ from ultralytics import YOLO
 import cv2
 import time
 import threading
-import winsound
+try:
+    import winsound
+except:
+    winsound = None
 import requests
 import json
 
@@ -67,7 +70,8 @@ def send_fire_video(video_path):
 # ===============================
 
 def play_alarm():
-    winsound.Beep(2000,500)
+    if winsound:
+        winsound.Beep(2000,500)
 
 
 # ===============================

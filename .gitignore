@@ -1,3 +1,7 @@
+runs/
+*.jpg
+*.mp4
+
 venv/
 yolovenv/
 __pycache__/
@@ -10,7 +14,3 @@ __pycache__/
 temp.jpg
 users.json
 
-runs/
-*.jpg
-*.mp4
-#*.pt

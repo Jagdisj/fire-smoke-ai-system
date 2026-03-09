@@ -4,6 +4,9 @@ import tempfile
 import sys
 import os
 import json
+import requests
+
+BOT_TOKEN = "8174249575:AAFuE_qwKqy9kaMyQ5BNcDrvu7sMaE6bfpI"
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
@@ -19,14 +22,29 @@ st.set_page_config(
 # LOAD USERS
 # ============================
 
-def load_users():
-    try:
-        with open("users.json","r") as f:
-            return json.load(f)
-    except:
-        return []
+def get_users():
 
-users = load_users()
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates"
+
+    data = requests.get(url).json()
+
+    users = []
+
+    for result in data.get("result", []):
+
+        message = result.get("message")
+
+        if message:
+
+            chat_id = message["chat"]["id"]
+
+            if chat_id not in users:
+                users.append(chat_id)
+
+    return users
+
+
+users = get_users()
 
 # ============================
 # LOGIN CHECK

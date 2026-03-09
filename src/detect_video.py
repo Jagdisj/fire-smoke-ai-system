@@ -160,34 +160,34 @@ def detect_frame(frame):
 
 
         # START VIDEO RECORDING
-        if not recording:
+    if fire_detected and not recording:
 
-            fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 
-            video_name = f"fire_video_{int(current_time)}.mp4"
+    video_name = f"fire_video_{int(current_time)}.mp4"
 
-            video_writer = cv2.VideoWriter(
-                video_name,
-                fourcc,
-                20.0,
-                (frame.shape[1],frame.shape[0])
-            )
+    video_writer = cv2.VideoWriter(
+        video_name,
+        fourcc,
+        20.0,
+        (frame.shape[1], frame.shape[0])
+    )
 
-            recording = True
-            record_start = time.time()
+    recording = True
+    record_start = time.time()
 
-# SAVE VIDEO FRAMES
-        if recording and video_writer is not None and record_start is not None:
+# SAVE VIDEO FRAME
+    if recording and video_writer is not None and record_start is not None:
 
          video_writer.write(annotated_frame)
 
-        if time.time() - record_start > record_duration:
+         if time.time() - record_start > record_duration:
 
-         recording = False
+          recording = False
 
-        video_writer.release()
+         video_writer.release()
 
-        if video_name:
+    if video_name:
             send_fire_video(video_name)
 
     return annotated_frame

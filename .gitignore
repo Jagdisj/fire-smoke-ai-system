@@ -1,0 +1,11 @@
+venv/
+yolovenv/
+__pycache__/
+
+*.pt
+*.mp4
+*.jpg
+*.png
+
+temp.jpg
+users.json

@@ -78,7 +78,7 @@ def play_alarm():
 # LOAD MODEL
 # ===============================
 
-model = YOLO("runs/detect/train10/weights/best.pt")
+model = YOLO("models/fire_model.pt")
 
 
 # ===============================

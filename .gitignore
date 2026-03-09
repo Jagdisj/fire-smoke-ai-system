@@ -9,3 +9,8 @@ __pycache__/
 
 temp.jpg
 users.json
+
+runs/
+*.jpg
+*.mp4
+#*.pt

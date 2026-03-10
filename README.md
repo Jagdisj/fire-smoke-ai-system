@@ -191,9 +191,9 @@ Telegram Bot API
 
 # 👨‍💻 Author
 
-Jagdish
+E Jagadish
 
-AI / Data Science Enthusiast
+AI / Data Scientist Enthusiast
 
 ## GitHub:
 

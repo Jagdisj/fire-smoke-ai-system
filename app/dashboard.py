@@ -4,6 +4,8 @@ import tempfile
 import sys
 import os
 import requests
+import numpy as np
+from ultralytics import YOLO
 
 BOT_TOKEN = "8174249575:AAFuE_qwKqy9kaMyQ5BNcDrvu7sMaE6bfpI"
 

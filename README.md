@@ -1,31 +1,18 @@
 # 🔥 AI Fire & Smoke Detection System
 
-An AI-powered Fire and Smoke Detection System built using YOLOv8, Python, OpenCV, Streamlit, and Telegram Bot API.
+An AI-powered **Fire and Smoke Detection System** built with **YOLOv8, Python, OpenCV, Streamlit, and the Telegram Bot API**.
 
-This system detects fire from images, videos, or live camera feeds and sends instant alerts with screenshot and video evidence via Telegram.
+The platform detects fire/smoke from **images, videos, and live camera feeds**, then sends **instant Telegram alerts** with screenshot and video evidence for rapid incident response.
 
-## 🚀 Demo
-Dashboard Preview
+---
 
-<img width="1915" height="895" alt="Screenshot 2026-03-10 155333" src="https://github.com/user-attachments/assets/699a34ba-63fd-4673-8469-53a5c5820571" />
+## 📌 Project Overview
 
-<img width="1177" height="1009" alt="Screenshot 2026-03-10 153443" src="https://github.com/user-attachments/assets/9403601d-6ed2-470d-89ef-7505ad3287e5" />
+This project is designed as a practical AI safety monitoring solution for real-world surveillance scenarios. It combines deep-learning-based object detection with a lightweight monitoring dashboard and automated alerting pipeline.
 
-<img width="1918" height="896" alt="Screenshot 2026-03-10 154909" src="https://github.com/user-attachments/assets/26c7388c-971b-4e85-8d77-1e5312445f20" />
+### 🧠 System Architecture
 
-Example:
-
-## Fire Detection Example
-
-<img width="994" height="564" alt="Screenshot 2026-03-10 154230" src="https://github.com/user-attachments/assets/97b2d8ab-cd3c-425e-8b41-300322daed6a" />
-
-Example:
-
-Demo Video
-
-https://github.com/user-attachments/assets/197f4c9e-a32d-40bb-8588-d004369836a7
-
-## 🧠 System Architecture
+```text
 Camera / Image / Video
         │
         ▼
@@ -39,19 +26,136 @@ Detection Engine (OpenCV)
         └── Telegram Alert System
         │
         ▼
-## Streamlit Monitoring Dashboard
-✨ Features
+Streamlit Monitoring Dashboard
+```
 
-🔥 Fire & Smoke Detection using YOLOv8
-🎥 Video detection support
-📷 Live CCTV / Webcam monitoring
-📸 Automatic screenshot evidence
-🎬 Automatic video recording on fire detection
-📲 Telegram alert notifications
-🌐 Interactive Streamlit dashboard
-⚡ Optimized frame processing for faster detection
+---
+
+## ✨ Key Features
+
+- 🔥 Fire & smoke detection using YOLOv8
+- 🎥 Video detection support
+- 📷 Live CCTV / webcam monitoring
+- 📸 Automatic screenshot evidence capture
+- 🎬 Automatic video recording on fire detection
+- 📲 Telegram alert notifications
+- 🌐 Interactive Streamlit monitoring dashboard
+- ⚡ Optimized frame processing for faster detection
+
+---
+
+## 🛠 Tech Stack
+
+- Python
+- YOLOv8 (Ultralytics)
+- OpenCV
+- Streamlit
+- Telegram Bot API
+
+---
+
+## ⚙️ Installation
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/Jagdishj/fire-smoke-ai-system.git
+cd fire-smoke-ai-system
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## ▶️ Usage
+
+### Run the Streamlit application
+
+```bash
+streamlit run app/dashboard.py
+```
+
+Then open:
+
+```text
+http://localhost:8501
+```
+
+### 🔍 Detection Modes
+
+- **Image Detection**: Upload image and detect fire.
+- **Video Detection**: Upload video and run frame-by-frame detection.
+- **Live Webcam / CCTV**: Real-time monitoring using webcam or camera feed.
+
+### 🤖 Telegram Alert Setup
+
+#### Step 1 — Create Telegram Bot
+
+1. Open **BotFather** in Telegram.
+2. Run command:
+   ```text
+   /newbot
+   ```
+3. Copy your **BOT TOKEN**.
+
+#### Step 2 — Add token in code
+
+Update the file:
+
+```text
+src/detect_video.py
+```
+
+Replace:
+
+```python
+BOT_TOKEN = "YOUR_BOT_TOKEN"
+```
+
+#### Step 3 — Start the bot
+
+Open your bot and send:
+
+```text
+/start
+```
+
+Your chat ID will be automatically registered.
+
+### 📲 Telegram Alert Example
+
+When fire is detected, the system automatically sends:
+
+- ⚠️ Fire detected alert
+- 📸 Screenshot evidence
+- 🎬 Recorded video clip
+
+Example message:
+
+```text
+🔥 FIRE DETECTED!
+Check camera immediately.
+```
+
+### ⚡ Performance Optimization
+
+To improve speed, the system uses:
+
+- Frame resizing
+- Frame skipping
+- Efficient YOLO inference
+
+This enables smoother detection even on CPU-only systems.
+
+---
 
 ## 📂 Project Structure
+
+```text
 fire-smoke-ai-system
 │
 ├── app
@@ -68,139 +172,78 @@ fire-smoke-ai-system
 │   └── fire_model.pt
 │
 ├── dataset
-│
 ├── test_images
 ├── test_videos
 │
 ├── users.json
 ├── requirements.txt
 └── README.md
-## ⚙️ Installation
-### 1️⃣ Clone the repository
-git clone https://github.com/Jagdishj/fire-smoke-ai-system.git
+```
 
-cd fire-smoke-ai-system
-### 2️⃣ Install dependencies
-pip install -r requirements.txt
-### ▶️ Run the Application
+---
 
-Start the Streamlit dashboard:
+## 🚀 Live Demo
 
-streamlit run app/dashboard.py
+### Dashboard Preview
 
-Open browser:
+<img width="1915" height="895" alt="Screenshot 2026-03-10 155333" src="https://github.com/user-attachments/assets/699a34ba-63fd-4673-8469-53a5c5820571" />
 
-http://localhost:8501
-🤖 Telegram Alert Setup
-Step 1 — Create Telegram Bot
+<img width="1177" height="1009" alt="Screenshot 2026-03-10 153443" src="https://github.com/user-attachments/assets/9403601d-6ed2-470d-89ef-7505ad3287e5" />
 
-Open BotFather in Telegram.
+<img width="1918" height="896" alt="Screenshot 2026-03-10 154909" src="https://github.com/user-attachments/assets/26c7388c-971b-4e85-8d77-1e5312445f20" />
 
-Run command:
+### Fire Detection Example
 
-/newbot
+<img width="994" height="564" alt="Screenshot 2026-03-10 154230" src="https://github.com/user-attachments/assets/97b2d8ab-cd3c-425e-8b41-300322daed6a" />
 
-Copy the BOT TOKEN.
+### Demo Video
 
-Step 2 — Add Token in Code
+https://github.com/user-attachments/assets/197f4c9e-a32d-40bb-8588-d004369836a7
 
-Update:
+### Try the Streamlit App Online
 
-src/detect_video.py
+🌐 **Streamlit App:** https://fire-smoke-ai-system.streamlit.app/
 
-Replace:
-
-BOT_TOKEN = "YOUR_BOT_TOKEN"
-Step 3 — Start the Bot
-
-Open your bot and send:
-
-/start
-
-Your chat ID will be automatically registered.
-
-## 🔍 Detection Modes
-Image Detection
-
-Upload image and detect fire.
-
-Video Detection
-
-Upload video and run frame-by-frame detection.
-
-Live Webcam / CCTV
-
-Real-time monitoring using webcam or camera feed.
-
-## 📲 Telegram Alert Example
-
-When fire is detected the system automatically sends:
-
-⚠️ Fire detected alert
-📸 Screenshot evidence
-🎬 Recorded video clip
-
-Example message:
-
-## 🔥 FIRE DETECTED!
-Check camera immediately.
-## ⚡ Performance Optimization
-
-To improve speed the system uses:
-
-Frame resizing
-
-Frame skipping
-
-Efficient YOLO inference
-
-This allows smoother detection even on CPU-only systems.
+---
 
 ## 🌐 Deployment
 
 This project can be deployed using:
 
-Streamlit Cloud
-
-Local server
-
-VPS / cloud instance
+- Streamlit Cloud
+- Local server
+- VPS / cloud instance
 
 To share a public demo link:
 
+```bash
 ngrok http 8501
+```
+
+---
+
 ## 📌 Future Improvements
 
-Multi-camera monitoring
+- Multi-camera monitoring
+- RTSP CCTV support
+- Incident history database
+- Email alert integration
+- Advanced analytics dashboard
 
-RTSP CCTV support
+---
 
-Incident history database
+## 👨‍💻 Author
 
-Email alert integration
-
-Advanced analytics dashboard
-
-## 🛠 Tech Stack
-
-Python
-YOLOv8 (Ultralytics)
-OpenCV
-Streamlit
-Telegram Bot API
-
-# 👨‍💻 Author
-
-E Jagadish
-
+**E Jagadish**  
 AI / Data Scientist Enthusiast
 
-## GitHub:
+- GitHub: https://github.com/Jagdisj
 
-https://github.com/Jagdisj
-⭐ Support
+---
 
-If you found this project useful please consider starring the repository.
+## ⭐ Support
 
-⭐ Star the repo
-🍴 Fork the project
+If you found this project useful, please consider supporting it:
+
+- ⭐ Star the repository
+- 🍴 Fork the project

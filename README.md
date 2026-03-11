@@ -202,7 +202,7 @@ https://github.com/user-attachments/assets/197f4c9e-a32d-40bb-8588-d004369836a7
 
 ### Try the Streamlit App Online
 
-🌐 **Streamlit App:** https://fire-smoke-ai-system.streamlit.app/
+🌐 **Streamlit App:** https://fire-smoke-ai-system-dishika0707.streamlit.app/
 
 ---
 

@@ -24,7 +24,7 @@ st.set_page_config(
 
 def get_telegram_users():
 
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates"
+    url = f"https://api.telegram.org/bot{8174249575:AAFuE_qwKqy9kaMyQ5BNcDrvu7sMaE6bfp}/getUpdates"
 
     response = requests.get(url).json()
 
